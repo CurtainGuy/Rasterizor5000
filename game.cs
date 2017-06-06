@@ -18,8 +18,9 @@ class Game
 	Stopwatch timer;						// timer for measuring frame duration
 	Shader shader;							// shader to use for rendering
 	Shader postproc;						// shader to use for post processing
-	Texture wood;							// texture to use for rendering
-	RenderTarget target;					// intermediate render target
+	Texture wood;                           // texture to use for rendering
+    Texture jacco;                          // texture to use for rendering
+        RenderTarget target;					// intermediate render target
 	ScreenQuad quad;						// screen filling quad for post processing
 	bool useRenderTarget = true;
 
@@ -38,8 +39,9 @@ class Game
 		postproc = new Shader( "../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl" );
 		// load a texture
 		wood = new Texture( "../../assets/wood.jpg" );
-		// create the render target
-		target = new RenderTarget( screen.width, screen.height );
+        jacco = new Texture("../../assets/jacco.png");
+        // create the render target
+        target = new RenderTarget( screen.width, screen.height );
 		quad = new ScreenQuad();
    	}
 
@@ -74,7 +76,7 @@ class Game
 
 			// render scene to render target
 			mesh.Render( shader, transform, wood );
-			floor.Render( shader, transform, wood );
+			floor.Render( shader, transform, jacco );
 
 			// render quad
 			target.Unbind();
@@ -84,7 +86,7 @@ class Game
 		{
 			// render scene directly to the screen
 			mesh.Render( shader, transform, wood );
-			floor.Render( shader, transform, wood );
+			floor.Render( shader, transform, jacco );
 		}
 	}
 }
