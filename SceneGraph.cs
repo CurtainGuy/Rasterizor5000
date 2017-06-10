@@ -12,19 +12,26 @@ namespace Template_P3
     // I'm thinking about a child-parent structure for this.
     class SceneGraph
     {
+        List<Mesh> meshes;
+
         public SceneGraph()
         {
-
+            meshes = new List<Mesh>();
         }
 
         public void Add(Mesh mesh)
         {
-
+            meshes.Add(mesh);
         }
 
         public void Render(Matrix4 cameramatrix)
         {
 
+        }
+
+        public List<Mesh> Meshes
+        {
+            get{ return meshes; }
         }
     }  
 }
