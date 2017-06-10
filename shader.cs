@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
 namespace Template_P3
@@ -16,6 +17,9 @@ namespace Template_P3
         public int attribute_vnrm;
         public int attribute_vuvs;
         public int uniform_mview;
+        // TO DO: create lightsources with a position, give objects a world position, then copy slide 22 of lecture 10
+        // worldPos
+        // lightPos
 
         // constructor
         public Shader(String vertexShader, String fragmentShader)
