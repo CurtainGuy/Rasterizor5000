@@ -99,7 +99,7 @@ namespace Template_P3
 
                 // render scene to render target
                 scenegraph.Meshes[0].Render( shader, transform, wood );
-                scenegraph.Meshes[1].Render( shader, transform, jacco );
+                scenegraph.Meshes[1].Render( shader, transform, wood );
 
                 // render quad
                 target.Unbind();
@@ -109,7 +109,7 @@ namespace Template_P3
             {
                 // render scene directly to the screen
                 scenegraph.Meshes[0].Render( shader, transform, wood );
-                scenegraph.Meshes[1].Render( shader, transform, jacco );
+                scenegraph.Meshes[1].Render( shader, transform, wood );
             }
             
         }
