@@ -12,13 +12,17 @@ namespace Template_P3
     // I'm thinking about a child-parent structure for this.
     class SceneGraph
     {
+
         public SceneGraph()
         {
 
         }
 
-        public void Add(Mesh mesh)
+        public void Add(Mesh mesh, Vector3 position, Mesh parent = null)
         {
+
+            mesh.PositionToParent = Matrix4.CreateTranslation(position);
+            mesh.Parent = parent;
 
         }
 

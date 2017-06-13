@@ -33,8 +33,11 @@ namespace Template_P3
             // TO DO: Make a demo which demonstrates the functionality. THIS IS MOSTLY WHAT OUR GRADE DEPENDS ON.
 
             // load teapot
-            scenegraph.Add(new Mesh("../../assets/teapot.obj"));
-            scenegraph.Add(new Mesh("../../assets/floor.obj"));
+            Mesh teapot = new Mesh("../../assets/teapot.obj");
+            Mesh floor = new Mesh("../../assets/floor.obj");
+            scenegraph.Add(teapot, new Vector3(0, 0, 1), floor);
+            
+            scenegraph.Add(floor, Vector3.Zero);
 
             // initialize stopwatch
             timer = new Stopwatch();

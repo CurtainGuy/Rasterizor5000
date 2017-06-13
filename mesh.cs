@@ -19,6 +19,8 @@ namespace Template_P3
         int vertexBufferId;                     // vertex buffer
         int triangleBufferId;                   // triangle buffer
         int quadBufferId;                       // quad buffer
+        Mesh parent;
+        Matrix4 positionToParent;
 
         // constructor
         public Mesh(string fileName)
@@ -94,6 +96,18 @@ namespace Template_P3
 
             // restore previous OpenGL state
             GL.UseProgram(0);
+        }
+
+        public Mesh Parent
+        {
+            get { return parent; }
+            set { parent = value; }
+        }
+
+        public Matrix4 PositionToParent
+        {
+            get{ return positionToParent; }
+            set{ positionToParent = value; }
         }
 
         // layout of a single vertex
