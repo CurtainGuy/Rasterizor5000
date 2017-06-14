@@ -8,7 +8,6 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Template_P3
 {
-
     class Game
     {
         // member variables
@@ -19,7 +18,7 @@ namespace Template_P3
         Stopwatch timer;                        // timer for measuring frame duration
         Shader shader;                          // shader to use for rendering
         Shader postproc;                        // shader to use for post processing
-        Texture wood;                           // texture to use for rendering
+        Texture wood, jacco;                    // texture to use for rendering
         RenderTarget target;                    // intermediate render target
         ScreenQuad quad;                        // screen filling quad for post processing
         SceneGraph scenegraph;
@@ -48,9 +47,15 @@ namespace Template_P3
             postproc = new Shader("../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl");
             // load a texture
             wood = new Texture("../../assets/wood.jpg");
+            jacco = new Texture("../../assets/jacco.png");
             // create the render target
             target = new RenderTarget(screen.width, screen.height);
             quad = new ScreenQuad();
+            
+            // set the light
+            int lightID = GL.GetUniformLocation(shader.programID,"lightPos");
+            GL.UseProgram(shader.programID);
+            GL.Uniform3(lightID, 0.0f, 10.0f, 0.0f);
         }
 
         // tick for background surface
@@ -79,7 +84,7 @@ namespace Template_P3
             scenegraph.Render(camera);
             // TO DO: Move this to Scenegraph.Render()
 
-            /*
+            
             // prepare matrix for vertex shader
             Matrix4 transform = Matrix4.CreateFromAxisAngle(new Vector3(0, 1, 0), a);
             transform *= Matrix4.CreateTranslation(0, -4, -15);
@@ -96,8 +101,8 @@ namespace Template_P3
                 target.Bind();
 
                 // render scene to render target
-                mesh.Render( shader, transform, wood );
-                floor.Render( shader, transform, wood );
+                scenegraph.Meshes[0].Render( shader, transform, wood );
+                scenegraph.Meshes[1].Render( shader, transform, wood );
 
                 // render quad
                 target.Unbind();
@@ -106,10 +111,10 @@ namespace Template_P3
             else
             {
                 // render scene directly to the screen
-                mesh.Render( shader, transform, wood );
-                floor.Render( shader, transform, wood );
+                scenegraph.Meshes[0].Render( shader, transform, wood );
+                scenegraph.Meshes[1].Render( shader, transform, wood );
             }
-            */
+            
         }
     }
 
