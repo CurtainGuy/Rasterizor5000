@@ -28,15 +28,15 @@ namespace Template_P3
         // initialize
         public void Init()
         {
-            scenegraph = new SceneGraph();
+            scenegraph = new SceneGraph(shader);
             // TO DO: Make a demo which demonstrates the functionality. THIS IS MOSTLY WHAT OUR GRADE DEPENDS ON.
 
             // load teapot
             Mesh teapot = new Mesh("../../assets/teapot.obj");
             Mesh floor = new Mesh("../../assets/floor.obj");
-            scenegraph.Add(teapot, new Vector3(0, 0, 1), floor);
+            scenegraph.Add(teapot, new Vector3(0, 0, 1), wood, floor);
             
-            scenegraph.Add(floor, Vector3.Zero);
+            scenegraph.Add(floor, Vector3.Zero, wood);
 
             // initialize stopwatch
             timer = new Stopwatch();
@@ -81,7 +81,7 @@ namespace Template_P3
             timer.Reset();
             timer.Start();
             
-            scenegraph.Render(camera);
+            //scenegraph.Render(camera);
             // TO DO: Move this to Scenegraph.Render()
 
             

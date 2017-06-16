@@ -21,6 +21,7 @@ namespace Template_P3
         int quadBufferId;                       // quad buffer
         Mesh parent;
         Matrix4 positionToParent;
+        Texture texture;
 
         // constructor
         public Mesh(string fileName)
@@ -108,6 +109,12 @@ namespace Template_P3
         {
             get{ return positionToParent; }
             set{ positionToParent = value; }
+        }
+
+        public Texture Texture
+        {
+            get{ return texture; }
+            set{ texture = value; }
         }
 
         // layout of a single vertex
