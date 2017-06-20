@@ -50,7 +50,7 @@ namespace Template_P3
                     transform *= m.PositionToParent;
                 }
                 transform *= uniform;
-                mesh.Render(shader, transform, mesh.Texture);
+                mesh.Render(shader, transform, cameramatrix, mesh.Texture);
             }
 
             target.Unbind();
