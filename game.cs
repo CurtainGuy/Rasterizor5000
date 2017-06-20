@@ -24,7 +24,6 @@ namespace Template_P3
         ScreenQuad quad;                        // screen filling quad for post processing
         SceneGraph scenegraph;
         Matrix4 camera;
-        Vector3 camerapos;
         bool useRenderTarget = true;
 
         // initialize
@@ -32,7 +31,6 @@ namespace Template_P3
         {
 
             camera = Matrix4.CreateFromAxisAngle(new Vector3(0, 1, 0), 0);
-            camerapos = new Vector3(0, 0, 0);
             // initialize stopwatch
             timer = new Stopwatch();
             timer.Reset();
@@ -70,20 +68,19 @@ namespace Template_P3
             float frameDuration = timer.ElapsedMilliseconds;
             timer.Reset();
             timer.Start();
-
+            float movespeed = 0.3f;
+            float turnspeed = 0.05f;
             var keyboard = OpenTK.Input.Keyboard.GetState();
-            if (keyboard[Key.Left]) camerapos += new Vector3(0.1f, 0, 0);
-            if (keyboard[Key.Right]) camerapos += new Vector3(-0.1f, 0, 0);
-            if (keyboard[Key.KeypadPlus]) camerapos += new Vector3(0, -0.1f, 0);
-            if (keyboard[Key.KeypadMinus]) camerapos += new Vector3(0, 0.1f, 0);
-            if (keyboard[Key.Up]) camerapos += new Vector3(0, 0, 0.1f);
-            if (keyboard[Key.Down]) camerapos += new Vector3(0, 0, -0.1f);
-
-            camera *= Matrix4.CreateTranslation(camerapos);
-            if (keyboard[Key.A]) camera *= Matrix4.CreateRotationY(0.01f);
-            if (keyboard[Key.D]) camera *= Matrix4.CreateRotationY(-0.01f);
-            if (keyboard[Key.W]) camera *= Matrix4.CreateRotationX(0.01f);
-            if (keyboard[Key.S]) camera *= Matrix4.CreateRotationX(-0.01f);
+            if (keyboard[Key.Left]) camera *= Matrix4.CreateTranslation(new Vector3(movespeed, 0, 0));
+            if (keyboard[Key.Right]) camera *= Matrix4.CreateTranslation(new Vector3(-movespeed, 0, 0));
+            if (keyboard[Key.KeypadPlus]) camera *= Matrix4.CreateTranslation(new Vector3(0, -movespeed, 0));
+            if (keyboard[Key.KeypadMinus]) camera *= Matrix4.CreateTranslation(new Vector3(0, movespeed, 0));
+            if (keyboard[Key.Up]) camera *= Matrix4.CreateTranslation(new Vector3(0, 0, movespeed));
+            if (keyboard[Key.Down]) camera *= Matrix4.CreateTranslation(new Vector3(0, 0, -movespeed));
+            if (keyboard[Key.A]) camera *= Matrix4.CreateRotationY(-turnspeed);
+            if (keyboard[Key.D]) camera *= Matrix4.CreateRotationY(turnspeed);
+            if (keyboard[Key.W]) camera *= Matrix4.CreateRotationX(-turnspeed);
+            if (keyboard[Key.S]) camera *= Matrix4.CreateRotationX(turnspeed);
 
             /*
             camera = Matrix4.CreateFromAxisAngle(new Vector3(0, 1, 0), a);
