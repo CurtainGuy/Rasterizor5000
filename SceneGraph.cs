@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 
 namespace Template_P3
 {
-    // TO DO: Add a hierarchy structure for meshes.
-    // For example: when they table is moved, the teapot is moved with it automatically. Or the wheels on a car.
-    // I'm thinking about a child-parent structure for this.
-    
     class SceneGraph
     {
         List<Mesh> meshes;
         Shader shader;
-        public SceneGraph(Shader shader)
+        Shader postproc;
+        RenderTarget target;
+        ScreenQuad quad;
+        public SceneGraph(Shader shader, Shader postproc, RenderTarget target, ScreenQuad quad)
         {
             meshes = new List<Mesh>();
             this.shader = shader;
+            this.postproc = postproc;
+            this.target = target;
+            this.quad = quad;
         }
 
         public void Add(Mesh mesh, Vector3 position, Texture texture, Mesh parent = null)
@@ -31,24 +33,28 @@ namespace Template_P3
 
         public void Render(Matrix4 cameramatrix)
         {
-            foreach(Mesh mesh in meshes)
-            {
-                Matrix4 transform = Matrix4.Identity;
-                Mesh m = mesh;
-                transform *= mesh.PositionToParent;
+            Matrix4 uniform = cameramatrix;
+            uniform *= Matrix4.CreateTranslation(0, -4, -15);
+            uniform *= Matrix4.CreatePerspectiveFieldOfView(1.2f, 1.3f, .1f, 1000);
 
+            target.Bind();
+            foreach (Mesh mesh in meshes)
+            {
+                Matrix4 transform = mesh.PositionToParent;
+                Mesh m = mesh;
+                
                 // Calculates worldcoördinates.
                 while (m.Parent != null)
                 {
                     m = mesh.Parent;
                     transform *= m.PositionToParent;
                 }
-                transform *= cameramatrix;
-                transform *= Matrix4.CreateTranslation(0, -4, -15);
-                transform *= Matrix4.CreatePerspectiveFieldOfView(1.2f, 1.3f, .1f, 1000);
-
-                m.Render(shader, transform, m.Texture);
+                transform *= uniform;
+                mesh.Render(shader, transform, mesh.Texture);
             }
+
+            target.Unbind();
+            quad.Render(postproc, target.GetTextureID());
         }
 
         public List<Mesh> Meshes

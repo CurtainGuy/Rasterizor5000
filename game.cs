@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using OpenTK;
+using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 
@@ -23,21 +24,15 @@ namespace Template_P3
         ScreenQuad quad;                        // screen filling quad for post processing
         SceneGraph scenegraph;
         Matrix4 camera;
+        Vector3 camerapos;
         bool useRenderTarget = true;
 
         // initialize
         public void Init()
         {
-            scenegraph = new SceneGraph(shader);
-            // TO DO: Make a demo which demonstrates the functionality. THIS IS MOSTLY WHAT OUR GRADE DEPENDS ON.
 
-            // load teapot
-            Mesh teapot = new Mesh("../../assets/teapot.obj");
-            Mesh floor = new Mesh("../../assets/floor.obj");
-            scenegraph.Add(teapot, new Vector3(0, 0, 1), wood, floor);
-            
-            scenegraph.Add(floor, Vector3.Zero, wood);
-
+            camera = Matrix4.CreateFromAxisAngle(new Vector3(0, 1, 0), 0);
+            camerapos = new Vector3(0, 0, 0);
             // initialize stopwatch
             timer = new Stopwatch();
             timer.Reset();
@@ -51,70 +46,56 @@ namespace Template_P3
             // create the render target
             target = new RenderTarget(screen.width, screen.height);
             quad = new ScreenQuad();
-            
+
+            scenegraph = new SceneGraph(shader, postproc, target, quad);
+            // TO DO: Make a demo which demonstrates the functionality. THIS IS MOSTLY WHAT OUR GRADE DEPENDS ON.
+
+            // load teapot
+            mesh = new Mesh("../../assets/teapot.obj");
+            floor = new Mesh("../../assets/floor.obj");
+
+            scenegraph.Add(mesh, new Vector3(0, -2, 0), wood, floor);
+            scenegraph.Add(floor, new Vector3(0, 0, 0), jacco);
+
             // set the light
             int lightID = GL.GetUniformLocation(shader.programID,"lightPos");
             GL.UseProgram(shader.programID);
             GL.Uniform3(lightID, 0.0f, 10.0f, 0.0f);
         }
 
-        // tick for background surface
-        public void Tick()
-        {
-            screen.Clear(0);
-            screen.Print("hello world", 2, 2, 0xffff00);
-
-            CameraUpdate();
-        }
 
         // TO DO: Change the camera matrix to user input. MUST support rotation and movement.
         void CameraUpdate()
         {
+            float frameDuration = timer.ElapsedMilliseconds;
+            timer.Reset();
+            timer.Start();
 
+            var keyboard = OpenTK.Input.Keyboard.GetState();
+            if (keyboard[Key.Left]) camerapos += new Vector3(0.1f, 0, 0);
+            if (keyboard[Key.Right]) camerapos += new Vector3(-0.1f, 0, 0);
+            if (keyboard[Key.KeypadPlus]) camerapos += new Vector3(0, -0.1f, 0);
+            if (keyboard[Key.KeypadMinus]) camerapos += new Vector3(0, 0.1f, 0);
+            if (keyboard[Key.Up]) camerapos += new Vector3(0, 0, 0.1f);
+            if (keyboard[Key.Down]) camerapos += new Vector3(0, 0, -0.1f);
+
+            camera *= Matrix4.CreateTranslation(camerapos);
+            if (keyboard[Key.A]) camera *= Matrix4.CreateRotationY(0.01f);
+            if (keyboard[Key.D]) camera *= Matrix4.CreateRotationY(-0.01f);
+            if (keyboard[Key.W]) camera *= Matrix4.CreateRotationX(0.01f);
+            if (keyboard[Key.S]) camera *= Matrix4.CreateRotationX(-0.01f);
+
+            /*
+            camera = Matrix4.CreateFromAxisAngle(new Vector3(0, 1, 0), a);
+            a += 0.001f * frameDuration;
+            if (a > 2 * PI) a -= 2 * PI; */
         }
 
         // tick for OpenGL rendering code
         public void RenderGL()
         {
-            // measure frame duration
-            float frameDuration = timer.ElapsedMilliseconds;
-            timer.Reset();
-            timer.Start();
-            
-            //scenegraph.Render(camera);
-            // TO DO: Move this to Scenegraph.Render()
-
-            
-            // prepare matrix for vertex shader
-            Matrix4 transform = Matrix4.CreateFromAxisAngle(new Vector3(0, 1, 0), a);
-            transform *= Matrix4.CreateTranslation(0, -4, -15);
-            transform *= Matrix4.CreatePerspectiveFieldOfView(1.2f, 1.3f, .1f, 1000);
-
-            // update rotation
-            a += 0.001f * frameDuration;
-            if (a > 2 * PI) a -= 2 * PI;
-
-            
-            if (useRenderTarget)
-            {
-                // enable render target
-                target.Bind();
-
-                // render scene to render target
-                scenegraph.Meshes[0].Render( shader, transform, wood );
-                scenegraph.Meshes[1].Render( shader, transform, wood );
-
-                // render quad
-                target.Unbind();
-                quad.Render( postproc, target.GetTextureID() );
-            }
-            else
-            {
-                // render scene directly to the screen
-                scenegraph.Meshes[0].Render( shader, transform, wood );
-                scenegraph.Meshes[1].Render( shader, transform, wood );
-            }
-            
+            CameraUpdate();
+            scenegraph.Render(camera);
         }
     }
 
