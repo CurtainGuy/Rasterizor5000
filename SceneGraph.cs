@@ -33,8 +33,8 @@ namespace Template_P3
 
         public void Render(Matrix4 cameramatrix)
         {
-            Matrix4 uniform = cameramatrix;
-            uniform *= Matrix4.CreateTranslation(0, -4, -15);
+            Matrix4 uniform = Matrix4.CreateTranslation(0, -4, -15);
+            uniform *= cameramatrix;
             uniform *= Matrix4.CreatePerspectiveFieldOfView(1.2f, 1.3f, .1f, 1000);
 
             target.Bind();
