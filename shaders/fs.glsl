@@ -1,4 +1,4 @@
-﻿#version 330
+﻿/* #version 330
 in vec2 uv;                 // interpolated texture coordinates
 in vec4 normal;             // interpolated normal, world space
 in vec4 worldPos;           // world space position of fragment
