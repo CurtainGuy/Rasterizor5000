@@ -99,6 +99,7 @@ namespace Template_P3
             GL.UseProgram(0);
         }
 
+        // The mesh tracks their parent, the position to their parent and their texture.
         public Mesh Parent
         {
             get { return parent; }
