@@ -84,7 +84,14 @@ namespace Template_P3
             
             // prepare matrix for vertex shader
             Matrix4 transform = Matrix4.CreateFromAxisAngle(new Vector3(0, 1, 0), a);
+            // transform to worldSpace
+            Matrix4 toWorld = transform;
+            // transform *= camera rotatie
+            
+            // transform *= camera positie
             transform *= Matrix4.CreateTranslation(0, -4, -15);
+
+            // to screen
             transform *= Matrix4.CreatePerspectiveFieldOfView(1.2f, 1.3f, .1f, 1000);
 
             // update rotation
@@ -98,8 +105,8 @@ namespace Template_P3
                 target.Bind();
 
                 // render scene to render target
-                scenegraph.Meshes[0].Render( shader, transform, wood );
-                scenegraph.Meshes[1].Render( shader, transform, wood );
+                scenegraph.Meshes[0].Render( shader, transform, toWorld, wood );
+                scenegraph.Meshes[1].Render( shader, transform, toWorld, wood );
 
                 // render quad
                 target.Unbind();
@@ -108,8 +115,8 @@ namespace Template_P3
             else
             {
                 // render scene directly to the screen
-                scenegraph.Meshes[0].Render( shader, transform, wood );
-                scenegraph.Meshes[1].Render( shader, transform, wood );
+                scenegraph.Meshes[0].Render( shader, transform, toWorld, wood );
+                scenegraph.Meshes[1].Render( shader, transform, toWorld, wood );
             }
             
         }

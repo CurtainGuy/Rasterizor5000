@@ -17,6 +17,7 @@ namespace Template_P3
         public int attribute_vnrm;
         public int attribute_vuvs;
         public int uniform_mview;
+        public int uniform_2wrld;
         // TO DO: create lightsources with a position, give objects a world position, then copy slide 22 of lecture 10
         // worldPos
         // lightPos
@@ -36,6 +37,7 @@ namespace Template_P3
             attribute_vnrm = GL.GetAttribLocation(programID, "vNormal");
             attribute_vuvs = GL.GetAttribLocation(programID, "vUV");
             uniform_mview = GL.GetUniformLocation(programID, "transform");
+            uniform_2wrld = GL.GetUniformLocation(programID, "toWorld");
         }
 
         // loading shaders
