@@ -48,8 +48,6 @@ public class OpenTKApp : GameWindow
 	}
 	protected override void OnRenderFrame( FrameEventArgs e )
 	{
-		// called once per frame; render
-		game.Tick();
 		if (terminated) 
 		{
 			Exit();
