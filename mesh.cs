@@ -20,7 +20,7 @@ namespace Template_P3
         int triangleBufferId;                   // triangle buffer
         int quadBufferId;                       // quad buffer
         Mesh parent;
-        Matrix4 positionToParent;
+        Matrix4 modelViewMatrix;
         Texture texture;
 
         // constructor
@@ -107,10 +107,10 @@ namespace Template_P3
             set { parent = value; }
         }
 
-        public Matrix4 PositionToParent
+        public Matrix4 ModelViewMatrix
         {
-            get{ return positionToParent; }
-            set{ positionToParent = value; }
+            get{ return modelViewMatrix; }
+            set{ modelViewMatrix = value; }
         }
 
         public Texture Texture

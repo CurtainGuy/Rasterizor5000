@@ -51,15 +51,14 @@ namespace Template_P3
             mesh = new Mesh("../../assets/teapot.obj");
             floor = new Mesh("../../assets/floor.obj");
 
-            // Add the meshes to the scenegraph. (Mesh, PositionToParent, Texture, Parent).
-            scenegraph.Add(mesh, new Vector3(0, -2, 0), wood, floor);
-            scenegraph.Add(floor, new Vector3(0, 0, 0), jacco);
+            // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, Parent).
+            scenegraph.Add(mesh, new Vector3(0, -2, 0), new Vector3(0,0,0), wood, floor);
+            scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(20,0,0), jacco);
 
             
             // set the light
             int lightID = GL.GetUniformLocation(shader.programID,"lightPos");
-            GL.UseProgram(shader.programID);
-            GL.Uniform3(lightID, 0.0f, 10.0f, 0.0f);
+            scenegraph.AddLight(lightID, new Vector3(0, 10, 0));
         }
 
         
@@ -82,11 +81,25 @@ namespace Template_P3
             
         }
 
+        void LightUpdate()
+        {
+            foreach (Light l in scenegraph.Lights)
+            {
+                GL.UseProgram(shader.programID);
+                GL.Uniform3(l.lightID, Vector3.Transform(l.position, camera));
+            }
+        }
+
         // tick for OpenGL rendering code
         public void RenderGL()
         {
             CameraUpdate();
             scenegraph.Render(camera);
+            Tick();
+        }
+        void Tick()
+        {
+            scenegraph.Meshes[1].ModelViewMatrix *= Matrix4.CreateRotationY(0.01f);
         }
     }
 
