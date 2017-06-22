@@ -71,7 +71,7 @@ namespace Template_P3
                 // The universal matrix is added up to the total transform...
                 transform *= uniform;
                 // and the mesh is finally rendered.
-                mesh.Render(shader, transform, cameramatrix, mesh.Texture);
+                mesh.Render(shader, transform, transform, mesh.Texture);
             }
             // Last but not least, the image is postprocessed. 
             target.Unbind();

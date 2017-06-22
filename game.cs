@@ -58,7 +58,10 @@ namespace Template_P3
             
             // set the light
             int lightID = GL.GetUniformLocation(shader.programID,"lightPos");
-            scenegraph.AddLight(lightID, new Vector3(0, 10, 0));
+            //scenegraph.AddLight(lightID, new Vector3(5, 10, 1));
+            GL.UseProgram(shader.programID);
+            GL.Uniform3(lightID, new Vector3(5, 2, -2));
+            // NOTE: changed toWorld from cameramatrix to transform!
         }
 
         

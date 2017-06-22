@@ -19,7 +19,7 @@ void main()                 // fragment shader
 	vec3 ambientColor = vec3(0.05f, 0.05f, 0.05f);
 	float attenuation = 1.0f / (dist * dist);
 	vec3 Phong = ambientColor + materialColor * pow(max( 0.0f, dot( L, R)), 100) * lightColor;
-	outputColor = vec4( (materialColor * max( 0.0f, dot( L, normal.xyz) ) * lightColor + Phong) * attenuation, 1);
-	//outputColor = vec4( (materialColor * max( 0.0f, dot( L, normal.xyz) ) * lightColor) * attenuation, 1);
+	//outputColor = vec4( (materialColor * max( 0.0f, dot( L, normal.xyz) ) * lightColor + Phong) * attenuation, 1);
+	outputColor = vec4( (materialColor * max( 0.0f, dot( L, normal.xyz) ) * lightColor) * attenuation, 1);
 	//outputColor = vec4(Phong,1);
 }
