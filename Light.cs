@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace Template_P3
 {
-// Unsure what is expected of this. Think it should be more or less the same as the raytracer light thingy. 
-    class Light
+    struct Light
     {
-        public Light()
+        public int lightID;
+        public Vector3 position;
+        public Light(int lightID, Vector3 position)
         {
-
+            this.lightID = lightID;
+            this.position = position;
         }
     }
 }
