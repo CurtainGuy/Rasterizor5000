@@ -24,11 +24,10 @@ void main()
 	outputColor.b *= 1 / (distance + 0.10f) * 0.25f;
 	
 	// apply Gaussian blur
-	float s = 0.84089642f, e = 2.71828f, pi = 3.14159f; // these values have been taken from wikipedia
+	float s = 0.44089642f, e = 2.71828f, pi = 3.14159f; // these values have been taken from wikipedia
 	HDRBloom *= (1/ (2 * pi * s * s) * pow(e, (-dx * dx - dy * dy) / (2 * s * s)));
-	HDRBloom = normalize(HDRBloom);
 	// apply HDR Bloom
-	//outputColor += HDRBloom;
+	outputColor += HDRBloom;
 }
 
 // EOF
