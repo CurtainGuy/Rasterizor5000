@@ -22,6 +22,7 @@ namespace Template_P3
         Mesh parent;
         Matrix4 modelViewMatrix;
         Texture texture;
+        float scale;
 
         // constructor
         public Mesh(string fileName)
@@ -117,6 +118,12 @@ namespace Template_P3
         {
             get{ return texture; }
             set{ texture = value; }
+        }
+
+        public float Scale
+        {
+            get { return scale; }
+            set { scale = value; }
         }
 
         // layout of a single vertex

@@ -51,9 +51,9 @@ namespace Template_P3
             mesh = new Mesh("../../assets/teapot.obj");
             floor = new Mesh("../../assets/floor.obj");
 
-            // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, Parent).
-            scenegraph.Add(mesh, new Vector3(5, 0, 0), new Vector3(0, 0, 30), wood, floor);
-            scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(30, 0, 0), jacco);
+            // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, scale, Parent).
+            scenegraph.Add(mesh, new Vector3(10, 0, 0), new Vector3(0, 0, 0), wood, 1, floor);
+            scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(0, 0, 0), jacco, 4);
 
             
             // set the light

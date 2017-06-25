@@ -24,5 +24,6 @@ void main()
 
 	// forward normal and uv coordinate; will be interpolated over triangle
 	normal = toWorld * vec4( vNormal, 0.0f );
+	normal = normalize(normal);
 	uv = vUV;
 }
