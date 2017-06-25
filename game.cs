@@ -60,6 +60,7 @@ namespace Template_P3
             mesh = new Mesh("../../assets/teapot.obj");
             floor = new Mesh("../../assets/floor.obj");
 
+
             // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, Parent).
             //scenegraph.Add(mesh, new Vector3(0, 0, 0), new Vector3(0, 0, 0), ceramic);
 
@@ -69,6 +70,11 @@ namespace Template_P3
             scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(0, 0, -10), new Vector3(90, 0, 0), back);
             scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(0, 10, 0), new Vector3(0, 0, 180), top);
             scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(0, 0, 0), new Vector3(0, 0, 0), bottom);
+
+            // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, scale, Parent).
+            //scenegraph.Add(mesh, new Vector3(10, 0, 0), new Vector3(0, 0, 0), wood, 1, floor);
+            //scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(0, 0, 0), jacco, 4);
+
 
             // set the light
             int lightID = GL.GetUniformLocation(shader.programID,"lightPos");
