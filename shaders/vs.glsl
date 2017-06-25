@@ -17,7 +17,7 @@ uniform mat4 toWorld;		// matrix to world space
 void main()
 {
 	// transform vertex using supplied matrix
-	gl_Position = transform * vec4(vPosition, 1.0);
+	gl_Position = transform * vec4(vPosition, 1.0f);
 
 	// asing worldPos
 	worldPos = toWorld * vec4( vPosition, 1.0f);
