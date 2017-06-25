@@ -52,16 +52,15 @@ namespace Template_P3
             floor = new Mesh("../../assets/floor.obj");
 
             // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, Parent).
-            scenegraph.Add(mesh, new Vector3(0, -2, 0), new Vector3(0,0,0), wood, floor);
-            scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(20,0,0), jacco);
+            scenegraph.Add(mesh, new Vector3(5, 0, 0), new Vector3(0, 0, 30), wood, floor);
+            scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(30, 0, 0), jacco);
 
             
             // set the light
             int lightID = GL.GetUniformLocation(shader.programID,"lightPos");
-            //scenegraph.AddLight(lightID, new Vector3(5, 10, 1));
+            //scenegraph.AddLight(lightID, new Vector3(0, 10, 0));
             GL.UseProgram(shader.programID);
-            GL.Uniform3(lightID, new Vector3(5, 2, -2));
-            // NOTE: changed toWorld from cameramatrix to transform!
+            GL.Uniform3(lightID, new Vector3(0, 10, 5));
         }
 
         
@@ -81,7 +80,6 @@ namespace Template_P3
             if (keyboard[Key.D]) camera *= Matrix4.CreateRotationY(turnspeed);
             if (keyboard[Key.W]) camera *= Matrix4.CreateRotationX(-turnspeed);
             if (keyboard[Key.S]) camera *= Matrix4.CreateRotationX(turnspeed);
-            
         }
 
         void LightUpdate()
@@ -97,6 +95,7 @@ namespace Template_P3
         public void RenderGL()
         {
             CameraUpdate();
+            //LightUpdate();
             scenegraph.Render(camera);
             Tick();
         }

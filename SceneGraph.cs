@@ -32,6 +32,7 @@ namespace Template_P3
         {
             // Each mesh tracks a few variables to calculate their position on rendering
             mesh.Parent = parent;
+            rotate *= (float)System.Math.PI / 180;
             mesh.ModelViewMatrix = Matrix4.CreateRotationX(rotate.X) * Matrix4.CreateRotationY(rotate.Y) * Matrix4.CreateRotationZ(rotate.Z);
             mesh.ModelViewMatrix *= Matrix4.CreateTranslation(position);
             mesh.Texture = texture;
@@ -68,10 +69,11 @@ namespace Template_P3
                     m = mesh.Parent;
                     transform *= m.ModelViewMatrix;
                 }
+                Matrix4 toWorld = transform;
                 // The universal matrix is added up to the total transform...
                 transform *= uniform;
                 // and the mesh is finally rendered.
-                mesh.Render(shader, transform, transform, mesh.Texture);
+                mesh.Render(shader, transform, toWorld, mesh.Texture);
             }
             // Last but not least, the image is postprocessed. 
             target.Unbind();
