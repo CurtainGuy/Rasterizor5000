@@ -15,6 +15,7 @@ void main()                 // fragment shader
 	L = normalize(L);
 	vec3 R = 2 * dot(L, normal.xyz) * normal.xyz - L;
 	vec3 lightColor = vec3( 100, 100, 100);
+	//vec3 lightColor = vec3(10000, 10000, 10000);
 	vec3 materialColor = texture( pixels, uv).xyz;
 	vec3 ambientColor = vec3(1.5f, 1.5f, 1.5f);
 	float attenuation = 1.0f / (dist * dist);
