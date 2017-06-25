@@ -28,13 +28,14 @@ namespace Template_P3
         }
 
         // Adds the meshes to the list.
-        public void Add(Mesh mesh, Vector3 position, Vector3 rotate, Texture texture, Mesh parent = null)
+        public void Add(Mesh mesh, Vector3 position, Vector3 rotate, Texture texture, float size = 1, Mesh parent = null)
         {
             // Each mesh tracks a few variables to calculate their position on rendering
             mesh.Parent = parent;
             rotate *= (float)System.Math.PI / 180;
             mesh.ModelViewMatrix = Matrix4.CreateRotationX(rotate.X) * Matrix4.CreateRotationY(rotate.Y) * Matrix4.CreateRotationZ(rotate.Z);
             mesh.ModelViewMatrix *= Matrix4.CreateTranslation(position);
+            mesh.Scale = size;
             mesh.Texture = texture;
             meshes.Add(mesh);
         }
@@ -60,6 +61,7 @@ namespace Template_P3
             {
                 // The local position to the parent is taken and the mesh is copied.
                 Matrix4 transform = mesh.ModelViewMatrix;
+                transform *= Matrix4.CreateScale(mesh.Scale);
                 Mesh m = mesh;
 
                 // The transform of the parent is taken into account.
