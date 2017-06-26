@@ -10,12 +10,17 @@ out vec3 outputColor;
 
 void main()
 {
-	// retrieve input pixel
-	outputColor = texture( pixels, uv ).rgb;
-	// apply dummy postprocessing effect
+	// retrieve input pixel and apply color aberration
+	outputColor.x = texture(pixels, vec2(uv.x, uv.y)).x;
+	outputColor.y = texture(pixels, vec2(uv.x + 0.002f, uv.y)).y;
+	outputColor.z = texture(pixels, vec2(uv.x, uv.y + 0.002f)).z;
+
+	// retrieve distance
 	float dx = P.x - 0.5, dy = P.y - 0.5;
 	float distance = sqrt( dx * dx + dy * dy );
-	//outputColor *= sin( distance * 200.0f ) * 0.25f + 0.75f;
+
+	// apply vignetting
+	outputColor *= 1 / (distance + 0.25f) * 0.25f;
 }
 
 // EOF
