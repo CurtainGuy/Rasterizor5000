@@ -68,7 +68,7 @@ namespace Template_P3
                 // Then, if the parent of the current mesh also has a parent, it repeats until we have the worldcoördinates.
                 while (m.Parent != null)
                 {
-                    m = mesh.Parent;
+                    m = m.Parent;
                     transform *= m.ModelViewMatrix;
                 }
                 Matrix4 toWorld = transform;
