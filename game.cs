@@ -24,8 +24,9 @@ namespace Template_P3
 
         float movespeed = 0.25f;
         float turnspeed = 0.03f;
-        Mesh mesh, floor;                       // a mesh to draw using OpenGL
-        Texture wood, jacco;                    // texture to use for rendering
+
+        Mesh mesh, floor;                                                                                               // a mesh to draw using OpenGL
+        Texture wood, jacco, white, ceramic, Teapottext, front, back, left, right, top, bottom;                         // texture to use for rendering
 
         // initialize
         public void Init()
@@ -46,14 +47,30 @@ namespace Template_P3
             // load the textures
             wood = new Texture("../../assets/wood.jpg");
             jacco = new Texture("../../assets/jacco.png");
+            ceramic = new Texture("../../assets/ceramic.jpg");
+            Teapottext = new Texture("../../assets/Teapottext.png");
+            white = new Texture("../../assets/white.jpg");
+            front = new Texture("../../assets/frontskybox.png");
+            back = new Texture("../../assets/backskybox.png");
+            left = new Texture("../../assets/leftskybox.png");
+            right = new Texture("../../assets/rightskybox.png");
+            top = new Texture("../../assets/topskybox.png");
+            bottom = new Texture("../../assets/bottomskybox.png");
+
 
             // load the meshes
             mesh = new Mesh("../../assets/teapot.obj");
             floor = new Mesh("../../assets/floor.obj");
 
-            // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, scale, Parent).
-            scenegraph.Add(mesh, new Vector3(10, 0, 0), new Vector3(0, 0, 0), wood, 1, floor);
-            scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(0, 0, 0), jacco, 4);
+            // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, Parent).
+            //scenegraph.Add(mesh, new Vector3(0, 0, 0), new Vector3(0, 0, 0), ceramic);
+
+            scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(10, 0, 0), new Vector3(0, 90, 270), left);
+            scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(-10, 0, 0), new Vector3(0, 90, 270), right);
+            scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(0, 0, 10), new Vector3(270, 0, 180), front);
+            scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(0, 0, -10), new Vector3(90, 0, 0), back);
+            scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(0, 10, 0), new Vector3(0, 0, 180), top);
+            scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(0, 0, 0), new Vector3(0, 0, 0), bottom);
 
             
             // set the light
@@ -61,6 +78,8 @@ namespace Template_P3
             //scenegraph.AddLight(lightID, new Vector3(0, 10, 0));
             GL.UseProgram(shader.programID);
             GL.Uniform3(lightID, new Vector3(0, 10, 5));
+
+
         }
 
         
