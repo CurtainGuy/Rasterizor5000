@@ -21,10 +21,11 @@ namespace Template_P3
         Matrix4 camera;
 
         // TO DO: Make a demo which demonstrates the functionality. THIS IS MOSTLY WHAT OUR GRADE DEPENDS ON.
+
         float movespeed = 0.25f;
         float turnspeed = 0.03f;
-        Mesh mesh, floor, table, ashtray, bowl, chair, chair2, chair3, lamp;                                   // a mesh to draw using OpenGL
-        Texture wood, jacco, white, ceramic, brick, metal, stone, wood2, floor1;                       // texture to use for rendering
+        Mesh mesh, floor;                       // a mesh to draw using OpenGL
+        Texture wood, jacco;                    // texture to use for rendering
 
         // initialize
         public void Init()
@@ -43,41 +44,23 @@ namespace Template_P3
             scenegraph = new SceneGraph(shader, postproc, target, quad);
 
             // load the textures
-            jacco = new Texture("../../assets/jacco.png");
-            ceramic = new Texture("../../assets/ceramic.jpg");
-            white = new Texture("../../assets/white.jpg");
             wood = new Texture("../../assets/wood.jpg");
-            wood2 = new Texture("../../assets/wood2.jpg");
-            brick = new Texture("../../assets/brick.jpg");
-            metal = new Texture("../../assets/metal.jpg");
-            stone = new Texture("../../assets/stone.jpg");
-            floor1 = new Texture("../../assets/floor.jpg");
+            jacco = new Texture("../../assets/jacco.png");
 
             // load the meshes
             mesh = new Mesh("../../assets/teapot.obj");
             floor = new Mesh("../../assets/floor.obj");
-            table = new Mesh("../../assets/table.obj");
-            ashtray = new Mesh("../../assets/ashtray.obj");
-            bowl = new Mesh("../../assets/bowl.obj");
-            chair2 = new Mesh("../../assets/chair2.obj");
-            lamp = new Mesh("../../assets/lamp.obj");
-            chair = new Mesh("../../assets/chair.obj");
-            chair3 = new Mesh("../../assets/chair3.obj");
 
-            // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, Parent).
-            scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(0, 0, 0), floor1, 2);
-            //scenegraph.Add(ashtray, new Vector3(0, 26.3f, 0), new Vector3(0, 0, 0), stone, 1);
-            scenegraph.Add(lamp, new Vector3(-4, 5.25f, -6), new Vector3(0, 15, 0), metal);
-            //scenegraph.Add(bowl, new Vector3(1, 0, 0), new Vector3(0, 0, 0), white);
-            scenegraph.Add(chair, new Vector3(0, 0, 0), new Vector3(0, 0, 0), white);
-            scenegraph.Add(chair2, new Vector3(-20, 7, 0), new Vector3(0, 90, 0), wood2, 0.5f);
-            scenegraph.Add(table, new Vector3(-4, 0, 0), new Vector3(0, 0, 0), wood, 0.1f);
+            // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, scale, Parent).
+            scenegraph.Add(mesh, new Vector3(10, 0, 0), new Vector3(0, 0, 0), wood, 1, floor);
+            scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(0, 0, 0), jacco, 4);
 
+            
             // set the light
             int lightID = GL.GetUniformLocation(shader.programID,"lightPos");
             //scenegraph.AddLight(lightID, new Vector3(0, 10, 0));
             GL.UseProgram(shader.programID);
-            GL.Uniform3(lightID, new Vector3(0, 25, 15));
+            GL.Uniform3(lightID, new Vector3(0, 10, 5));
         }
 
         
@@ -118,7 +101,7 @@ namespace Template_P3
         }
         void Tick()
         {
-            scenegraph.Meshes[1].ModelViewMatrix *= Matrix4.CreateRotationY(0.0f);
+            scenegraph.Meshes[1].ModelViewMatrix *= Matrix4.CreateRotationY(0.01f);
         }
     }
 
