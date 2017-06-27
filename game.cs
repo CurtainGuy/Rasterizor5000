@@ -94,7 +94,7 @@ namespace Template_P3
             scenegraph.Add(new Mesh("../../assets/chair.obj"), new Vector3(0.7f, -0.39f, 0.5f), new Vector3(0, 270, 0), wood2, 10, floor);
             scenegraph.Add(table, new Vector3(-4, 10.1f, 0), new Vector3(0, 0, 0), wood, 0.1f, floor);
             
-            //some other objects
+            // Some other objects
             scenegraph.Add(fan, new Vector3(-1, 30, 0), new Vector3(0, rotatefan, 0), white, 0.8f, table);
             scenegraph.Add(mesh, new Vector3(0, -15.3f, 10), new Vector3(0, rotatepot, 0), ceramic, 0.25f, table);
             scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(8, -6.7f, 0), new Vector3(0, 0, 0), jacco, 0.5f, table);
@@ -138,11 +138,13 @@ namespace Template_P3
             scenegraph.Render(camera);
             Tick();
         }
+
+        // Moves the objects for the next Render.
         void Tick()
         {
             scenegraph.Meshes[0].Rotation *= Matrix4.CreateRotationY(rotatefloor);
-            scenegraph.Meshes[23].Rotation *= Matrix4.CreateRotationY(rotatefan);
             scenegraph.Meshes[22].Rotation *= Matrix4.CreateRotationY(rotatefan);
+            scenegraph.Meshes[23].Rotation *= Matrix4.CreateRotationY(rotatefan);
         }
     }
 
