@@ -8,8 +8,6 @@ namespace Template_P3
 
     // mesh and loader based on work by JTalton; http://www.opentk.com/node/642
 
-
-    // TO DO: Add a local matrix to the mesh.
     public class Mesh
     {
         // data members

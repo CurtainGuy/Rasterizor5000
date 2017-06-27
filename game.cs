@@ -28,7 +28,7 @@ namespace Template_P3
         float turnspeed = 0.03f;
 
         Mesh mesh, floor, table, lamp, fan, cup, chair;                                  // a mesh to draw using OpenGL
-        Texture wood, jacco, white, metal, wood2, floor1, glass, ceramic;                         // texture to use for rendering
+        Texture wood, jacco, white, metal, wood2, floor1, glass, ceramic;                // texture to use for rendering
 
         // initialize
         public void Init()
@@ -115,6 +115,7 @@ namespace Template_P3
         {
             // Gets the state of the keyboard
             var keyboard = OpenTK.Input.Keyboard.GetState();
+
             // Changes the cameraposition with a translationmatrix according to the buttons pressed.
             if (keyboard[Key.Left]) camera *= Matrix4.CreateTranslation(new Vector3(movespeed, 0, 0));
             if (keyboard[Key.Right]) camera *= Matrix4.CreateTranslation(new Vector3(-movespeed, 0, 0));
@@ -122,6 +123,7 @@ namespace Template_P3
             if (keyboard[Key.KeypadMinus]) camera *= Matrix4.CreateTranslation(new Vector3(0, movespeed, 0));
             if (keyboard[Key.Up]) camera *= Matrix4.CreateTranslation(new Vector3(0, 0, movespeed));
             if (keyboard[Key.Down]) camera *= Matrix4.CreateTranslation(new Vector3(0, 0, -movespeed));
+
             // Changes the cameradirection with a rotationmatrix according to the buttons pressed.
             if (keyboard[Key.A]) camera *= Matrix4.CreateRotationY(-turnspeed);
             if (keyboard[Key.D]) camera *= Matrix4.CreateRotationY(turnspeed);
