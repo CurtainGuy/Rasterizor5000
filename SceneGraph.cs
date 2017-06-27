@@ -53,11 +53,11 @@ namespace Template_P3
             foreach (Mesh mesh in meshes)
             {
                 // The local position to the parent is taken and the mesh is copied.
-                Matrix4 transform = mesh.Rotation;
+                Matrix4 transform = Matrix4.CreateScale(mesh.Scale);
+                transform *= mesh.Rotation;
                 transform *= mesh.ModelViewMatrix;
-                transform *= Matrix4.CreateScale(mesh.Scale);
                 Mesh m = mesh;
-
+                
                 // The transform of the parent is taken into account.
                 // Then, if the parent of the current mesh also has a parent, it repeats until we have the worldcoördinates.
                 while (m.Parent != null)
@@ -66,6 +66,7 @@ namespace Template_P3
                     transform*= m.Rotation;
                     transform *= m.ModelViewMatrix;
                 }
+                
                 Matrix4 toWorld = transform;
                 // The universal matrix is added up to the total transform...
                 transform *= uniform;
