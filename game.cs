@@ -19,8 +19,7 @@ namespace Template_P3
         ScreenQuad quad;                        // screen filling quad for post processing
         SceneGraph scenegraph;
         Matrix4 camera;
-
-        // TO DO: Make a demo which demonstrates the functionality. THIS IS MOSTLY WHAT OUR GRADE DEPENDS ON.
+        
         float rotatefloor = 0.01f;
         float rotatefan = 0.1f;
         float rotatepot = 0.2f;
@@ -29,7 +28,7 @@ namespace Template_P3
         float turnspeed = 0.03f;
 
         Mesh mesh, floor, table, lamp, fan, cup, chair;                                  // a mesh to draw using OpenGL
-        Texture wood, jacco, white, metal, wood2, floor1, glass, ceramic;                         // texture to use for rendering
+        Texture wood, jacco, white, metal, wood2, floor1, glass, ceramic;                // texture to use for rendering
 
         // initialize
         public void Init()
@@ -95,7 +94,7 @@ namespace Template_P3
             scenegraph.Add(new Mesh("../../assets/chair.obj"), new Vector3(0.7f, -0.39f, 0.5f), new Vector3(0, 270, 0), wood2, 10, floor);
             scenegraph.Add(table, new Vector3(-4, 10.1f, 0), new Vector3(0, 0, 0), wood, 0.1f, floor);
             
-            //something other objects
+            //some other objects
             scenegraph.Add(fan, new Vector3(-1, 30, 0), new Vector3(0, rotatefan, 0), white, 0.8f, table);
             scenegraph.Add(mesh, new Vector3(0, -15.3f, 10), new Vector3(0, rotatepot, 0), ceramic, 0.25f, table);
             scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(8, -6.7f, 0), new Vector3(0, 0, 0), jacco, 0.5f, table);
@@ -116,6 +115,7 @@ namespace Template_P3
         {
             // Gets the state of the keyboard
             var keyboard = OpenTK.Input.Keyboard.GetState();
+
             // Changes the cameraposition with a translationmatrix according to the buttons pressed.
             if (keyboard[Key.Left]) camera *= Matrix4.CreateTranslation(new Vector3(movespeed, 0, 0));
             if (keyboard[Key.Right]) camera *= Matrix4.CreateTranslation(new Vector3(-movespeed, 0, 0));
@@ -123,20 +123,12 @@ namespace Template_P3
             if (keyboard[Key.KeypadMinus]) camera *= Matrix4.CreateTranslation(new Vector3(0, movespeed, 0));
             if (keyboard[Key.Up]) camera *= Matrix4.CreateTranslation(new Vector3(0, 0, movespeed));
             if (keyboard[Key.Down]) camera *= Matrix4.CreateTranslation(new Vector3(0, 0, -movespeed));
+
             // Changes the cameradirection with a rotationmatrix according to the buttons pressed.
             if (keyboard[Key.A]) camera *= Matrix4.CreateRotationY(-turnspeed);
             if (keyboard[Key.D]) camera *= Matrix4.CreateRotationY(turnspeed);
             if (keyboard[Key.W]) camera *= Matrix4.CreateRotationX(-turnspeed);
             if (keyboard[Key.S]) camera *= Matrix4.CreateRotationX(turnspeed);
-        }
-
-        void LightUpdate()
-        {
-            foreach (Light l in scenegraph.Lights)
-            {
-                GL.UseProgram(shader.programID);
-                GL.Uniform3(l.lightID, Vector3.Transform(l.position, camera));
-            }
         }
 
         // tick for OpenGL rendering code
@@ -148,7 +140,6 @@ namespace Template_P3
         }
         void Tick()
         {
-            //scenegraph.Meshes[22].ModelViewMatrix *= Matrix4.CreateRotationY(rotatefan);
             scenegraph.Meshes[0].Rotation *= Matrix4.CreateRotationY(rotatefloor);
             scenegraph.Meshes[23].Rotation *= Matrix4.CreateRotationY(rotatefan);
             scenegraph.Meshes[22].Rotation *= Matrix4.CreateRotationY(rotatefan);
