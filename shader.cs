@@ -6,9 +6,6 @@ using OpenTK.Graphics.OpenGL;
 namespace Template_P3
 {
 
-    // TO DO: Add Phong shading model.
-    // Add variable for the ambient lighting
-    // Make it so that it implements lightsources (from Light class). Can be hardcoded, but taking variables is extra point$$.
     public class Shader
     {
         // data members
@@ -18,9 +15,6 @@ namespace Template_P3
         public int attribute_vuvs;
         public int uniform_mview;
         public int uniform_2wrld;
-        // TO DO: create lightsources with a position, give objects a world position, then copy slide 22 of lecture 10
-        // worldPos
-        // lightPos
 
         // constructor
         public Shader(String vertexShader, String fragmentShader)

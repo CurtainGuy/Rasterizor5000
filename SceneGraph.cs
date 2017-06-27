@@ -11,7 +11,6 @@ namespace Template_P3
     {
         // membervariables
         List<Mesh> meshes;
-        List<Light> lights;
         Shader shader;
         Shader postproc;
         RenderTarget target;
@@ -19,7 +18,6 @@ namespace Template_P3
         public SceneGraph(Shader shader, Shader postproc, RenderTarget target, ScreenQuad quad)
         {
             meshes = new List<Mesh>();
-            lights = new List<Light>();
             // taken directly from game.cs
             this.shader = shader;
             this.postproc = postproc;
@@ -38,11 +36,6 @@ namespace Template_P3
             mesh.Scale = size;
             mesh.Texture = texture;
             meshes.Add(mesh);
-        }
-
-        public void AddLight(int lightID, Vector3 position)
-        {
-            lights.Add(new Light(lightID, position));
         }
 
         // Renders each mesh in the list.
@@ -87,11 +80,6 @@ namespace Template_P3
         public List<Mesh> Meshes
         {
             get{ return meshes; }
-        }
-
-        public List<Light> Lights
-        {
-            get { return lights; }
         }
     }  
 }

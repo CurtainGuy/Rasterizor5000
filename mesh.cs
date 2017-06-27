@@ -8,8 +8,6 @@ namespace Template_P3
 
     // mesh and loader based on work by JTalton; http://www.opentk.com/node/642
 
-
-    // TO DO: Add a local matrix to the mesh.
     public class Mesh
     {
         // data members
@@ -101,7 +99,7 @@ namespace Template_P3
             GL.UseProgram(0);
         }
 
-        // The mesh tracks their parent, the position to their parent and their texture.
+        // The mesh tracks their parent, the position to their parent, their texture, rotation and scale.
         public Mesh Parent
         {
             get { return parent; }
