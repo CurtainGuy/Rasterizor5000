@@ -50,7 +50,7 @@ namespace Template_P3
         {
             // Instead of calculating this for every mesh, we speed up the process by precalculating the universal matrix.
             // This defines the startposition of the camera. 
-            Matrix4 uniform = Matrix4.CreateTranslation(0, -4, -15);
+            Matrix4 uniform = Matrix4.CreateTranslation(0, -14, -15);
             // Then, the cameramatrix is given from the game class.
             uniform *= cameramatrix;
             // Lastly, the prespective is created.
