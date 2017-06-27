@@ -25,7 +25,7 @@ namespace Template_P3
         float rotatepot = 0.2f;
 
         float movespeed = 0.25f;
-        float turnspeed = 0.03f;
+        float turnspeed = 0.05f;
 
         // Color of the (ambient) light.
         Vector3 lightcolor = new Vector3(850, 850, 850);
@@ -73,35 +73,35 @@ namespace Template_P3
             //parent floor
             scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(0, rotatefloor, 0), floor1, 2);
 
+            scenegraph.Add(table, new Vector3(-4, 10.1f, 0), new Vector3(0, 0, 0), wood, 0.1f, floor);
             //for a nice game of beerpong
-            scenegraph.Add(cup, new Vector3(-9, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(-4, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(1, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(6, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(11, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(-6.5f, 30.1f, 28.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(-1.5f, 30.1f, 28.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(3.5f, 30.1f, 28.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(8.5f, 30.1f, 28.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(6, 30.1f, 23.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(1, 30.1f, 23.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(-4, 30.1f, 23.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(-1.5f, 30.1f, 18.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(3.5f, 30.1f, 18.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(1, 30.1f, 13.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
+            scenegraph.Add(cup, new Vector3(20, -20, 46), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(25, -20, 46), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(30, -20, 46), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(35, -20, 46), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(40, -20, 46), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(22.5f, -20, 41.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(27.5f, -20, 41.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(32.5f, -20, 41.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(37.5f, -20, 41.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(35, -20, 36.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(30, -20, 36.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(25, -20, 36.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(27.5f, -20, 31.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(32.5f, -20, 31.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(30, -20, 26.5f), Vector3.Zero, glass, 0.2f, table);
             
             //what's on the other parts of the table
-            scenegraph.Add(lamp, new Vector3(-4, 6.3f, -6), new Vector3(0, 25, 0), metal, 1, floor);
+            scenegraph.Add(lamp, new Vector3(2, -4, -5), new Vector3(0, 25, 0), metal, 1, table);
             scenegraph.Add(chair, new Vector3(-0.7f, -0.39f, 0.5f), new Vector3(0, 90, 0), wood2, 10, floor);
             scenegraph.Add(new Mesh("../../assets/chair.obj"), new Vector3(-0.7f, -0.39f, -0.5f), new Vector3(0, 90, 0), wood2, 10, floor);
             scenegraph.Add(new Mesh("../../assets/chair.obj"), new Vector3(0.7f, -0.39f, -0.5f), new Vector3(0, 270, 0), wood2, 10, floor);
             scenegraph.Add(new Mesh("../../assets/chair.obj"), new Vector3(0.7f, -0.39f, 0.5f), new Vector3(0, 270, 0), wood2, 10, floor);
-            scenegraph.Add(table, new Vector3(-4, 10.1f, 0), new Vector3(0, 0, 0), wood, 0.1f, floor);
             
             // Some other objects
-            scenegraph.Add(fan, new Vector3(-1, 30, 0), new Vector3(0, rotatefan, 0), white, 0.8f, table);
+            scenegraph.Add(fan, new Vector3(0, 30, 0), new Vector3(0, rotatefan, 0), white, 0.8f);
             scenegraph.Add(mesh, new Vector3(0, -15.3f, 10), new Vector3(0, rotatepot, 0), ceramic, 0.25f, table);
-            scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(8, -6.7f, 0), new Vector3(0, 0, 0), jacco, 0.5f, table);
+            scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(8, -6.7f, 0), Vector3.Zero, jacco, 0.5f, table);
 
             // set the light
             int lightID = GL.GetUniformLocation(shader.programID,"lightPos");
