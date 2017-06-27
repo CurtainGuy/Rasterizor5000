@@ -102,12 +102,16 @@ namespace Template_P3
 
             // set the light
             int lightID = GL.GetUniformLocation(shader.programID,"lightPos");
-            //scenegraph.AddLight(lightID, new Vector3(0, 10, 0));
+            int colorID = GL.GetUniformLocation(shader.programID, "lightColor");
+            int ambientID = GL.GetUniformLocation(shader.programID, "ambientColor");
+            Light light = new Light(lightID, new Vector3(0, 25, 15));
             GL.UseProgram(shader.programID);
-            GL.Uniform3(lightID, new Vector3(0, 25, 15));
+            GL.Uniform3(light.lightID, light.position);
+            GL.Uniform3(colorID, new Vector3(700, 700, 700));
+            GL.Uniform3(ambientID, new Vector3(1.5f, 1.5f, 1.5f));
         }
 
-        
+
         void CameraUpdate()
         {
             // Gets the state of the keyboard
