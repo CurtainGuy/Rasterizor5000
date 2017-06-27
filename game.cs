@@ -23,6 +23,7 @@ namespace Template_P3
         // TO DO: Make a demo which demonstrates the functionality. THIS IS MOSTLY WHAT OUR GRADE DEPENDS ON.
         float rotatefloor = 0.01f;
         float rotatefan = 0.1f;
+        float rotatepot = 0.2f;
 
         float movespeed = 0.25f;
         float turnspeed = 0.03f;
@@ -96,7 +97,7 @@ namespace Template_P3
             
             //something other objects
             scenegraph.Add(fan, new Vector3(-1, 30, 0), new Vector3(0, rotatefan, 0), white, 0.8f, table);
-            scenegraph.Add(mesh, new Vector3(0, -15.3f, 10), new Vector3(0, 10, 0), ceramic, 0.25f, table);
+            scenegraph.Add(mesh, new Vector3(0, -15.3f, 10), new Vector3(0, rotatepot, 0), ceramic, 0.25f, table);
             scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(8, -6.7f, 0), new Vector3(0, 0, 0), jacco, 0.5f, table);
 
             // set the light
@@ -143,6 +144,7 @@ namespace Template_P3
         }
         void Tick()
         {
+            scenegraph.Meshes[23].Rotation *= Matrix4.CreateRotationY(rotatepot);
             scenegraph.Meshes[22].ModelViewMatrix *= Matrix4.CreateRotationY(rotatefan);
             scenegraph.Meshes[0].ModelViewMatrix *= Matrix4.CreateRotationY(rotatefloor);
         }
