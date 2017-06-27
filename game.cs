@@ -19,13 +19,20 @@ namespace Template_P3
         ScreenQuad quad;                        // screen filling quad for post processing
         SceneGraph scenegraph;
         Matrix4 camera;
-
-        // TO DO: Make a demo which demonstrates the functionality. THIS IS MOSTLY WHAT OUR GRADE DEPENDS ON.
+        
+        float rotatefloor = 0.01f;
+        float rotatefan = 0.1f;
+        float rotatepot = 0.2f;
 
         float movespeed = 0.25f;
-        float turnspeed = 0.03f;
-        Mesh mesh, floor;                       // a mesh to draw using OpenGL
-        Texture wood, jacco;                    // texture to use for rendering
+        float turnspeed = 0.05f;
+
+        // Color of the (ambient) light.
+        Vector3 lightcolor = new Vector3(850, 850, 850);
+        Vector3 ambient = new Vector3(2.5f, 2.5f, 2.5f);
+
+        Mesh mesh, floor, table, lamp, fan, cup, chair;                                  // a mesh to draw using OpenGL
+        Texture wood, jacco, white, metal, wood2, floor1, glass, ceramic;                // texture to use for rendering
 
         // initialize
         public void Init()
@@ -44,30 +51,75 @@ namespace Template_P3
             scenegraph = new SceneGraph(shader, postproc, target, quad);
 
             // load the textures
-            wood = new Texture("../../assets/wood.jpg");
             jacco = new Texture("../../assets/jacco.png");
+            white = new Texture("../../assets/white.jpg");
+            wood = new Texture("../../assets/wood.jpg");
+            wood2 = new Texture("../../assets/wood2.jpg");
+            metal = new Texture("../../assets/metal.jpg");
+            floor1 = new Texture("../../assets/floor.jpg");
+            glass = new Texture("../../assets/glass.jpg");
+            ceramic = new Texture("../../assets/ceramic.jpg");
 
             // load the meshes
             mesh = new Mesh("../../assets/teapot.obj");
             floor = new Mesh("../../assets/floor.obj");
+            table = new Mesh("../../assets/table.obj");
+            cup = new Mesh("../../assets/cup.obj");
+            lamp = new Mesh("../../assets/lamp.obj");
+            fan = new Mesh("../../assets/blades.obj");
+            chair = new Mesh("../../assets/chair.obj");
 
-            // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, scale, Parent).
-            scenegraph.Add(mesh, new Vector3(10, 0, 0), new Vector3(0, 0, 0), wood, 1, floor);
-            scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(0, 0, 0), jacco, 4);
+            // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, Parent).
+            //parent floor
+            scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(0, rotatefloor, 0), floor1, 2);
 
+            scenegraph.Add(table, new Vector3(-4, 10.1f, 0), new Vector3(0, 0, 0), wood, 0.1f, floor);
+            //for a nice game of beerpong
+            scenegraph.Add(cup, new Vector3(20, -20, 46), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(25, -20, 46), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(30, -20, 46), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(35, -20, 46), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(40, -20, 46), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(22.5f, -20, 41.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(27.5f, -20, 41.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(32.5f, -20, 41.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(37.5f, -20, 41.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(35, -20, 36.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(30, -20, 36.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(25, -20, 36.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(27.5f, -20, 31.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(32.5f, -20, 31.5f), Vector3.Zero, glass, 0.2f, table);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(30, -20, 26.5f), Vector3.Zero, glass, 0.2f, table);
             
+            //what's on the other parts of the table
+            scenegraph.Add(lamp, new Vector3(2, -4, -5), new Vector3(0, 25, 0), metal, 1, table);
+            scenegraph.Add(chair, new Vector3(-0.7f, -0.39f, 0.5f), new Vector3(0, 90, 0), wood2, 10, floor);
+            scenegraph.Add(new Mesh("../../assets/chair.obj"), new Vector3(-0.7f, -0.39f, -0.5f), new Vector3(0, 90, 0), wood2, 10, floor);
+            scenegraph.Add(new Mesh("../../assets/chair.obj"), new Vector3(0.7f, -0.39f, -0.5f), new Vector3(0, 270, 0), wood2, 10, floor);
+            scenegraph.Add(new Mesh("../../assets/chair.obj"), new Vector3(0.7f, -0.39f, 0.5f), new Vector3(0, 270, 0), wood2, 10, floor);
+            
+            // Some other objects
+            scenegraph.Add(fan, new Vector3(0, 30, 0), new Vector3(0, rotatefan, 0), white, 0.8f);
+            scenegraph.Add(mesh, new Vector3(0, -15.3f, 10), new Vector3(0, rotatepot, 0), ceramic, 0.25f, table);
+            scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(8, -6.7f, 0), Vector3.Zero, jacco, 0.5f, table);
+
             // set the light
             int lightID = GL.GetUniformLocation(shader.programID,"lightPos");
-            //scenegraph.AddLight(lightID, new Vector3(0, 10, 0));
+            int colorID = GL.GetUniformLocation(shader.programID, "lightColor");
+            int ambientID = GL.GetUniformLocation(shader.programID, "ambientColor");
+            Light light = new Light(lightID, new Vector3(0, 25, 15));
             GL.UseProgram(shader.programID);
-            GL.Uniform3(lightID, new Vector3(0, 10, 5));
+            GL.Uniform3(light.lightID, light.position);
+            GL.Uniform3(colorID, lightcolor);
+            GL.Uniform3(ambientID, ambient);
         }
 
-        
+
         void CameraUpdate()
         {
             // Gets the state of the keyboard
             var keyboard = OpenTK.Input.Keyboard.GetState();
+
             // Changes the cameraposition with a translationmatrix according to the buttons pressed.
             if (keyboard[Key.Left]) camera *= Matrix4.CreateTranslation(new Vector3(movespeed, 0, 0));
             if (keyboard[Key.Right]) camera *= Matrix4.CreateTranslation(new Vector3(-movespeed, 0, 0));
@@ -75,6 +127,7 @@ namespace Template_P3
             if (keyboard[Key.KeypadMinus]) camera *= Matrix4.CreateTranslation(new Vector3(0, movespeed, 0));
             if (keyboard[Key.Up]) camera *= Matrix4.CreateTranslation(new Vector3(0, 0, movespeed));
             if (keyboard[Key.Down]) camera *= Matrix4.CreateTranslation(new Vector3(0, 0, -movespeed));
+
             // Changes the cameradirection with a rotationmatrix according to the buttons pressed.
             if (keyboard[Key.A]) camera *= Matrix4.CreateRotationY(-turnspeed);
             if (keyboard[Key.D]) camera *= Matrix4.CreateRotationY(turnspeed);
@@ -82,26 +135,20 @@ namespace Template_P3
             if (keyboard[Key.S]) camera *= Matrix4.CreateRotationX(turnspeed);
         }
 
-        void LightUpdate()
-        {
-            foreach (Light l in scenegraph.Lights)
-            {
-                GL.UseProgram(shader.programID);
-                GL.Uniform3(l.lightID, Vector3.Transform(l.position, camera));
-            }
-        }
-
         // tick for OpenGL rendering code
         public void RenderGL()
         {
             CameraUpdate();
-            //LightUpdate();
             scenegraph.Render(camera);
             Tick();
         }
+
+        // Moves the objects for the next Render.
         void Tick()
         {
-            scenegraph.Meshes[1].ModelViewMatrix *= Matrix4.CreateRotationY(0.01f);
+            scenegraph.Meshes[0].Rotation *= Matrix4.CreateRotationY(rotatefloor);
+            scenegraph.Meshes[22].Rotation *= Matrix4.CreateRotationY(rotatefan);
+            scenegraph.Meshes[23].Rotation *= Matrix4.CreateRotationY(rotatefan);
         }
     }
 

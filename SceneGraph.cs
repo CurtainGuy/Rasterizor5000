@@ -11,7 +11,6 @@ namespace Template_P3
     {
         // membervariables
         List<Mesh> meshes;
-        List<Light> lights;
         Shader shader;
         Shader postproc;
         RenderTarget target;
@@ -19,7 +18,6 @@ namespace Template_P3
         public SceneGraph(Shader shader, Shader postproc, RenderTarget target, ScreenQuad quad)
         {
             meshes = new List<Mesh>();
-            lights = new List<Light>();
             // taken directly from game.cs
             this.shader = shader;
             this.postproc = postproc;
@@ -33,16 +31,11 @@ namespace Template_P3
             // Each mesh tracks a few variables to calculate their position on rendering
             mesh.Parent = parent;
             rotate *= (float)System.Math.PI / 180;
-            mesh.ModelViewMatrix = Matrix4.CreateRotationX(rotate.X) * Matrix4.CreateRotationY(rotate.Y) * Matrix4.CreateRotationZ(rotate.Z);
-            mesh.ModelViewMatrix *= Matrix4.CreateTranslation(position);
+            mesh.ModelViewMatrix = Matrix4.CreateTranslation(position);
+            mesh.Rotation = Matrix4.CreateRotationX(rotate.X) * Matrix4.CreateRotationY(rotate.Y) * Matrix4.CreateRotationZ(rotate.Z);
             mesh.Scale = size;
             mesh.Texture = texture;
             meshes.Add(mesh);
-        }
-
-        public void AddLight(int lightID, Vector3 position)
-        {
-            lights.Add(new Light(lightID, position));
         }
 
         // Renders each mesh in the list.
@@ -50,7 +43,7 @@ namespace Template_P3
         {
             // Instead of calculating this for every mesh, we speed up the process by precalculating the universal matrix.
             // This defines the startposition of the camera. 
-            Matrix4 uniform = Matrix4.CreateTranslation(0, -4, -15);
+            Matrix4 uniform = Matrix4.CreateTranslation(0, -14, -15);
             // Then, the cameramatrix is given from the game class.
             uniform *= cameramatrix;
             // Lastly, the prespective is created.
@@ -60,7 +53,8 @@ namespace Template_P3
             foreach (Mesh mesh in meshes)
             {
                 // The local position to the parent is taken and the mesh is copied.
-                Matrix4 transform = mesh.ModelViewMatrix;
+                Matrix4 transform = mesh.Rotation;
+                transform *= mesh.ModelViewMatrix;
                 transform *= Matrix4.CreateScale(mesh.Scale);
                 Mesh m = mesh;
 
@@ -68,7 +62,8 @@ namespace Template_P3
                 // Then, if the parent of the current mesh also has a parent, it repeats until we have the worldcoördinates.
                 while (m.Parent != null)
                 {
-                    m = mesh.Parent;
+                    m = m.Parent;
+                    transform*= m.Rotation;
                     transform *= m.ModelViewMatrix;
                 }
                 Matrix4 toWorld = transform;
@@ -85,11 +80,6 @@ namespace Template_P3
         public List<Mesh> Meshes
         {
             get{ return meshes; }
-        }
-
-        public List<Light> Lights
-        {
-            get { return lights; }
         }
     }  
 }
