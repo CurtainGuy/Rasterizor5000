@@ -20,7 +20,7 @@ namespace Template_P3
         int triangleBufferId;                   // triangle buffer
         int quadBufferId;                       // quad buffer
         Mesh parent;
-        Matrix4 modelViewMatrix, rotation;
+        Matrix4 modelViewMatrix;
         Texture texture;
         float scale;
 
@@ -120,11 +120,6 @@ namespace Template_P3
             set{ texture = value; }
         }
 
-        public Matrix4 Rotation
-        {
-            get{ return rotation; }
-            set{ rotation = value; }
-        }
         public float Scale
         {
             get { return scale; }
