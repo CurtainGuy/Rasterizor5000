@@ -122,8 +122,8 @@ namespace Template_P3
 
         public Matrix4 Rotation
         {
-            get { return rotation; }
-            set { rotation = value; }
+            get{ return rotation; }
+            set{ rotation = value; }
         }
         public float Scale
         {

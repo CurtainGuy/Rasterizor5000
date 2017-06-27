@@ -33,8 +33,8 @@ namespace Template_P3
             // Each mesh tracks a few variables to calculate their position on rendering
             mesh.Parent = parent;
             rotate *= (float)System.Math.PI / 180;
-            mesh.ModelViewMatrix = Matrix4.CreateRotationX(rotate.X) * Matrix4.CreateRotationY(rotate.Y) * Matrix4.CreateRotationZ(rotate.Z);
-            mesh.ModelViewMatrix *= Matrix4.CreateTranslation(position);
+            mesh.ModelViewMatrix = Matrix4.CreateTranslation(position);
+            mesh.Rotation = Matrix4.CreateRotationX(rotate.X) * Matrix4.CreateRotationY(rotate.Y) * Matrix4.CreateRotationZ(rotate.Z);
             mesh.Scale = size;
             mesh.Texture = texture;
             meshes.Add(mesh);
@@ -60,7 +60,8 @@ namespace Template_P3
             foreach (Mesh mesh in meshes)
             {
                 // The local position to the parent is taken and the mesh is copied.
-                Matrix4 transform = mesh.ModelViewMatrix;
+                Matrix4 transform = mesh.Rotation;
+                transform *= mesh.ModelViewMatrix;
                 transform *= Matrix4.CreateScale(mesh.Scale);
                 Mesh m = mesh;
 
@@ -69,6 +70,7 @@ namespace Template_P3
                 while (m.Parent != null)
                 {
                     m = m.Parent;
+                    transform*= m.Rotation;
                     transform *= m.ModelViewMatrix;
                 }
                 Matrix4 toWorld = transform;
