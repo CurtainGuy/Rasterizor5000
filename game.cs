@@ -151,7 +151,7 @@ namespace Template_P3
         {
             scenegraph.Meshes[0].Rotation *= Matrix4.CreateRotationY(rotatefloor);
             scenegraph.Meshes[22].Rotation *= Matrix4.CreateRotationY(rotatefan);
-            scenegraph.Meshes[23].Rotation *= Matrix4.CreateRotationY(rotatefan);
+            scenegraph.Meshes[23].Rotation *= Matrix4.CreateRotationY(rotatepot);
         }
     }
 
