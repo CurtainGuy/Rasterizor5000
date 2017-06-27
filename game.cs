@@ -27,6 +27,10 @@ namespace Template_P3
         float movespeed = 0.25f;
         float turnspeed = 0.03f;
 
+        // Color of the (ambient) light.
+        Vector3 lightcolor = new Vector3(850, 850, 850);
+        Vector3 ambient = new Vector3(2.5f, 2.5f, 2.5f);
+
         Mesh mesh, floor, table, lamp, fan, cup, chair;                                  // a mesh to draw using OpenGL
         Texture wood, jacco, white, metal, wood2, floor1, glass, ceramic;                // texture to use for rendering
 
@@ -106,8 +110,8 @@ namespace Template_P3
             Light light = new Light(lightID, new Vector3(0, 25, 15));
             GL.UseProgram(shader.programID);
             GL.Uniform3(light.lightID, light.position);
-            GL.Uniform3(colorID, new Vector3(700, 700, 700));
-            GL.Uniform3(ambientID, new Vector3(1.5f, 1.5f, 1.5f));
+            GL.Uniform3(colorID, lightcolor);
+            GL.Uniform3(ambientID, ambient);
         }
 
 
