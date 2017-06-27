@@ -27,8 +27,8 @@ namespace Template_P3
         float movespeed = 0.25f;
         float turnspeed = 0.03f;
 
-        Mesh mesh, floor, table, chair2, lamp, fan, cup;                                                        // a mesh to draw using OpenGL
-        Texture wood, jacco, white, ceramic, brick, metal, stone, wood2, floor1, glass;                         // texture to use for rendering
+        Mesh mesh, floor, table, lamp, fan, cup, chair;                                  // a mesh to draw using OpenGL
+        Texture wood, jacco, white, metal, wood2, floor1, glass, ceramic;                         // texture to use for rendering
 
         // initialize
         public void Init()
@@ -48,29 +48,27 @@ namespace Template_P3
 
             // load the textures
             jacco = new Texture("../../assets/jacco.png");
-            ceramic = new Texture("../../assets/ceramic.jpg");
             white = new Texture("../../assets/white.jpg");
             wood = new Texture("../../assets/wood.jpg");
             wood2 = new Texture("../../assets/wood2.jpg");
-            brick = new Texture("../../assets/brick.jpg");
             metal = new Texture("../../assets/metal.jpg");
-            stone = new Texture("../../assets/stone.jpg");
             floor1 = new Texture("../../assets/floor.jpg");
             glass = new Texture("../../assets/glass.jpg");
+            ceramic = new Texture("../../assets/ceramic.jpg");
 
             // load the meshes
             mesh = new Mesh("../../assets/teapot.obj");
             floor = new Mesh("../../assets/floor.obj");
             table = new Mesh("../../assets/table.obj");
             cup = new Mesh("../../assets/cup.obj");
-            chair2 = new Mesh("../../assets/chair2.obj");
             lamp = new Mesh("../../assets/lamp.obj");
             fan = new Mesh("../../assets/blades.obj");
+            chair = new Mesh("../../assets/chair.obj");
 
             // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, Parent).
             //parent floor
             scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(0, rotatefloor, 0), floor1, 2);
-            
+
             //for a nice game of beerpong
             scenegraph.Add(cup, new Vector3(-9, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
             scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(-4, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
@@ -90,14 +88,16 @@ namespace Template_P3
             
             //what's on the other parts of the table
             scenegraph.Add(lamp, new Vector3(-4, 6.3f, -6), new Vector3(0, 25, 0), metal, 1, floor);
-            scenegraph.Add(chair2, new Vector3(-20, 2.62f, 6), new Vector3(0, 90, 0), wood2, 0.5f, floor);
-            scenegraph.Add(new Mesh("../../assets/chair2.obj"), new Vector3(-20, 2.62f, -12), new Vector3(0, 90, 0), wood2, 0.5f, floor);
-            scenegraph.Add(new Mesh("../../assets/chair2.obj"), new Vector3(20, 2.62f, -6), new Vector3(0, 270, 0), wood2, 0.5f, floor);
-            scenegraph.Add(new Mesh("../../assets/chair2.obj"), new Vector3(20, 2.62f, 12), new Vector3(0, 270, 0), wood2, 0.5f, floor);
+            scenegraph.Add(chair, new Vector3(-0.7f, -0.39f, 0.5f), new Vector3(0, 90, 0), wood2, 10, floor);
+            scenegraph.Add(new Mesh("../../assets/chair.obj"), new Vector3(-0.7f, -0.39f, -0.5f), new Vector3(0, 90, 0), wood2, 10, floor);
+            scenegraph.Add(new Mesh("../../assets/chair.obj"), new Vector3(0.7f, -0.39f, -0.5f), new Vector3(0, 270, 0), wood2, 10, floor);
+            scenegraph.Add(new Mesh("../../assets/chair.obj"), new Vector3(0.7f, -0.39f, 0.5f), new Vector3(0, 270, 0), wood2, 10, floor);
             scenegraph.Add(table, new Vector3(-4, 10.1f, 0), new Vector3(0, 0, 0), wood, 0.1f, floor);
             
-            //something floating above it
+            //something other objects
             scenegraph.Add(fan, new Vector3(-1, 30, 0), new Vector3(0, rotatefan, 0), white, 0.8f, table);
+            scenegraph.Add(mesh, new Vector3(0, -15.3f, 10), new Vector3(0, 10, 0), ceramic, 0.25f, table);
+            scenegraph.Add(new Mesh("../../assets/floor.obj"), new Vector3(8, -6.7f, 0), new Vector3(0, 0, 0), jacco, 0.5f, table);
 
             // set the light
             int lightID = GL.GetUniformLocation(shader.programID,"lightPos");
