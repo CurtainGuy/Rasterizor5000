@@ -71,9 +71,9 @@ namespace Template_P3
             //parent floor
             scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(0, rotatefloor, 0), floor1, 2);
             
-            //for a nice game of beerpong
+            //for a nice game of beerpong, remove the /* and */ below this comment
             scenegraph.Add(cup, new Vector3(-9, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(-4, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
+            /*scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(-4, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
             scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(1, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
             scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(6, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
             scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(11, 30.1f, 33), new Vector3(0, 0, 0), glass, 0.2f, floor);
@@ -86,7 +86,7 @@ namespace Template_P3
             scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(-4, 30.1f, 23.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
             scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(-1.5f, 30.1f, 18.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
             scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(3.5f, 30.1f, 18.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
-            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(1, 30.1f, 13.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);
+            scenegraph.Add(new Mesh("../../assets/cup.obj"), new Vector3(1, 30.1f, 13.5f), new Vector3(0, 0, 0), glass, 0.2f, floor);*/
             
             //what's on the other parts of the table
             scenegraph.Add(lamp, new Vector3(-4, 6.3f, -6), new Vector3(0, 25, 0), metal, 1, floor);
@@ -143,7 +143,7 @@ namespace Template_P3
         }
         void Tick()
         {
-            scenegraph.Meshes[22].ModelViewMatrix *= Matrix4.CreateRotationY(rotatefan);
+            scenegraph.Meshes[8].ModelViewMatrix *= Matrix4.CreateRotationY(rotatefan);
             scenegraph.Meshes[0].ModelViewMatrix *= Matrix4.CreateRotationY(rotatefloor);
         }
     }
