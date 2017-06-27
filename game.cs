@@ -143,8 +143,10 @@ namespace Template_P3
         }
         void Tick()
         {
-            scenegraph.Meshes[22].ModelViewMatrix *= Matrix4.CreateRotationY(rotatefan);
-            scenegraph.Meshes[0].ModelViewMatrix *= Matrix4.CreateRotationY(rotatefloor);
+            //scenegraph.Meshes[22].ModelViewMatrix *= Matrix4.CreateRotationY(rotatefan);
+            scenegraph.Meshes[0].Rotation *= Matrix4.CreateRotationY(rotatefloor);
+            scenegraph.Meshes[16].Rotation *= Matrix4.CreateRotationY(rotatefan);
+            scenegraph.Meshes[22].Rotation *= Matrix4.CreateRotationY(rotatefan);
         }
     }
 
