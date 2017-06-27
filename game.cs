@@ -69,7 +69,7 @@ namespace Template_P3
             fan = new Mesh("../../assets/blades.obj");
             chair = new Mesh("../../assets/chair.obj");
 
-            // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, Parent).
+            // Add the meshes to the scenegraph. (Mesh, relatieve positie naar parent, relatieve rotatie naar parent, Texture, size, Parent).
             //parent floor
             scenegraph.Add(floor, new Vector3(0, 0, 0), new Vector3(0, rotatefloor, 0), floor1, 2);
 
